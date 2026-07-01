@@ -127,4 +127,4 @@ agente-livros-colorir/
 
 ---
 
-<sub>Capa gerada com OpenAI <code>gpt-image-2</code> (score 9 · clutter 4 · legibilidade 10). Line-art das amostras: OpenAI <code>gpt-image-1-mini</code>.</sub>
+<sub>Capa: OpenAI <code>gpt-image-2</code>. Line-art das amostras: OpenAI <code>gpt-image-1-mini</code>.</sub>
