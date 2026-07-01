@@ -122,8 +122,8 @@ agente-livros-colorir/
 
 ## 🔒 Segurança
 
-- `.env` **nunca** é commitado (no `.gitignore`).
-- As saídas (`livros/`) também ficam de fora do git.
+- `.env` (chaves de API) é ignorado pelo git e **nunca** deve ser commitado.
+- As saídas geradas (`livros/`) ficam na sua máquina e também fora do versionamento.
 
 ---
 
