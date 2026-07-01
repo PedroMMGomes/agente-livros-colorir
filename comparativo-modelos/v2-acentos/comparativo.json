@@ -1,0 +1,75 @@
+{
+  "data": "2026-06-21T15:57:57.939Z",
+  "headline": "O contexto é o Produto!",
+  "cambioUSDBRL": 5.5,
+  "prompt": "A clean, modern editorial illustration for a tech LinkedIn post. Concept: \"prompt engineering died; what survived is context engineering — designing what the model SEES before it responds, not what it SAYS\". Context for the model to understand the meaning: in LLM systems, the leverage moved from writing the perfect prompt to curating everything that enters the model's context window — retrieval, memory, positioning, compression. Context is a scarce resource (cost, latency, attention budget). The Anthropic definition: \"find the smallest set of high-signal tokens that maximize the likelihood of your desired outcome.\" This is the harness applied to knowledge.\n\nIsometric 3D editorial style, corporate tech palette (deep navy background, teal and cyan accents, white), with a warm amber accent for \"noise/warning\" elements, subtle grid background, professional, minimal, high detail, square 1:1 composition, no watermark, no logos.\n\nShow at the CENTER a small, friendly AI robot (a luminous cyan sphere with a simple happy face — cute, approachable, NOT a cold corporate machine). This robot represents the LLM model. Around the robot, a subtle rectangular frame/window (the \"context window\").\n\nOn the LEFT, show a large chaotic pile of document blocks / information fragments (dessaturated, muted, with a faint amber warning glow — representing \"context rot\" / too much irrelevant information). From this pile, a pair of stylized, warm, minimal human hands (acolhedoras — caring, not corporate) gently select ONLY the 3-4 bright, glowing high-signal blocks (teal/cyan glow) and place them INSIDE the context window, near the happy robot. The non-selected blocks stay outside the window, faded and dessaturated. The robot smiles because it receives only what matters.\n\nKeep it to a maximum of 6 visual blocks: (1) the happy AI robot at center, (2) the subtle context window frame around it, (3) the chaotic pile of documents on the left (with amber warning glow), (4) the caring hands selecting high-signal blocks, (5) the 3-4 bright high-signal blocks placed inside the window, (6) the faded/discarded blocks outside. Generous white space; emphasize the OUTCOME (the happy robot receiving only high-signal context), not just the thesis. Icons of a single consistent isometric 3D style. Warm, human, acolhedor tone (amber accents for \"noise\", teal/cyan for \"high-signal\").\n\nDo NOT include any office scene, business people in suits, meetings, sales charts, wireframe spheres, or abstract beauty without meaning. Bold modern sans-serif text overlay reading exactly \"O contexto é o Produto!\", centered and clearly legible, with correct Portuguese accents. Show ONLY this single headline — do NOT add any other labels, captions, callouts or annotations. Keep it to a maximum of 6 visual blocks.",
+  "imagensPorModelo": 2,
+  "resultados": [
+    {
+      "modelo": "GLM-Image",
+      "id": "glm-image",
+      "fornecedor": "z.ai",
+      "precoUSD": 0.015,
+      "precoBRL": 0.08249999999999999,
+      "arq": "glm-image-1_BRL0-08.png",
+      "kb": 98,
+      "segundos": 49.4,
+      "erro": null
+    },
+    {
+      "modelo": "GLM-Image",
+      "id": "glm-image",
+      "fornecedor": "z.ai",
+      "precoUSD": 0.015,
+      "precoBRL": 0.08249999999999999,
+      "arq": "glm-image-2_BRL0-08.png",
+      "kb": 88,
+      "segundos": 43.5,
+      "erro": null
+    },
+    {
+      "modelo": "GPT-Image-1-Mini",
+      "id": "gpt-image-1-mini",
+      "fornecedor": "openai",
+      "precoUSD": 0.011,
+      "precoBRL": 0.0605,
+      "arq": "gpt-image-1-mini-1_BRL0-06.png",
+      "kb": 1530,
+      "segundos": 32.7,
+      "erro": null
+    },
+    {
+      "modelo": "GPT-Image-1-Mini",
+      "id": "gpt-image-1-mini",
+      "fornecedor": "openai",
+      "precoUSD": 0.011,
+      "precoBRL": 0.0605,
+      "arq": "gpt-image-1-mini-2_BRL0-06.png",
+      "kb": 1788,
+      "segundos": 31.3,
+      "erro": null
+    },
+    {
+      "modelo": "GPT-Image-2",
+      "id": "gpt-image-2",
+      "fornecedor": "openai",
+      "precoUSD": 0.04,
+      "precoBRL": 0.22,
+      "arq": "gpt-image-2-1_BRL0-22.png",
+      "kb": 1334,
+      "segundos": 66.7,
+      "erro": null
+    },
+    {
+      "modelo": "GPT-Image-2",
+      "id": "gpt-image-2",
+      "fornecedor": "openai",
+      "precoUSD": 0.04,
+      "precoBRL": 0.22,
+      "arq": "gpt-image-2-2_BRL0-22.png",
+      "kb": 1391,
+      "segundos": 60.9,
+      "erro": null
+    }
+  ]
+}

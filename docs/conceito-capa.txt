@@ -1,0 +1,18 @@
+README hero banner for "Colorir Mágico" — an AI agent that creates personalized coloring books for kids. It plans creative scenes (with a language model) and draws each page as clean black-and-white line-art (with an image model), ready to print and color.
+
+Editorial isometric 3D illustration, warm and playful but still premium. Palette: soft navy base (#0B1E2D) for depth, bright teal/cyan (#22D3EE) and a warm amber/cream (#FBBF24 / #FEF3C7) for the playful kid-friendly energy. Studio lighting, soft shadows, subtle bloom, high detail. No watermark, no logos.
+
+Composition (wide hero, 3 depth planes, left-to-right reading flow, max 6 visual blocks):
+
+BACKGROUND PLANE — warm navy sky with a faint dot-grid and a few soft cyan "sparkles"/stars, generous headroom.
+
+MID PLANE (the action band):
+- LEFT: a small friendly stylized "creative robot" character (rounded body, glowing cyan friendly eyes with a smile, small precise arms), holding a giant glowing crayon like a wand. It is actively drawing. Around it float a few colorful crayons/pencils (amber, cyan, coral) and a small floating "spark/idea" — representing the AI planning creativity.
+- CENTER: the hero artifact — a clean open coloring-book page rising mid-air showing crisp BLACK-AND-WHITE LINE-ART of a cute friendly animal (e.g., a happy cat or fox with a butterfly), clearly meant to be colored. The line-art is bold, clean, kid-friendly. A few crayon strokes of color are just starting to fill one corner (amber + cyan) suggesting the coloring action. This page is a clear focal point with a soft halo.
+- RIGHT: a small stack of finished coloring-book pages (line-art) fanning out, plus a tiny printer icon gently emitting a finished page, suggesting "ready to print". A couple of cheerful mini star/confetti accents in amber.
+
+FOREGROUND — subtle reflective ground plane catching navy/cyan/amber highlights; a few scattered colorful crayons resting softly.
+
+Mood: magical, warm, creative, family-friendly, premium. Visual hierarchy: the LINE-ART BOOK PAGE (center) is the protagonist; the friendly robot (left) creates it; the printable stack (right) is the outcome.
+
+Do NOT include: scary/realistic faces, office/business, sales charts, wireframe spheres, money, generic abstract beauty without meaning, social media icons, watermarks, brand logos, photographic real children.

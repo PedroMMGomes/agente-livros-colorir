@@ -1,0 +1,17 @@
+{
+  "modelo": "viduq1-start-end",
+  "custoUSD": 0.4,
+  "custoBRL": 2.2,
+  "duration": "5s",
+  "size": "1920x1080",
+  "frame1": "gpt-image-2-1_BRL0-22.png",
+  "frame2": "gpt-image-2-2_BRL0-22.png",
+  "prompt": "Smooth cinematic transition between two isometric 3D editorial illustrations about context engineering. The AI robot and human hands gently animate, blocks of information flow into the context window. Warm amber and teal lighting. Professional, calm motion.",
+  "videoArquivo": "vidu-q1-start-end-teste.mp4",
+  "videoMB": 3.68,
+  "tempoTotalSegundos": 181,
+  "videoUrl": "https://prod-ss-vidu.s3.cn-northwest-1.amazonaws.com.cn/infer_48/tasks/26/0621/16/966316821579829248/creation-01/video.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Checksum-Mode=ENABLED&X-Amz-Credential=AKIARRHG6JR7EMNHVUWT%2F20260621%2Fcn-northwest-1%2Fs3%2Faws4_request&X-Amz-Date=20260621T163210Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D86400&response-content-disposition=attachment%3Bfilename%3Dgeneral-5-2026-06-21T16%253A32%253A00Z.mp4&x-id=GetObject&X-Amz-Signature=63c9aa1cb2d50f3022065168216039be55f1e90f9cfad90058e02bf399b36eee",
+  "coverUrl": "https://prod-ss-vidu.s3.cn-northwest-1.amazonaws.com.cn/infer_48/tasks/26/0621/16/966316821579829248/creation-01/cover.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Checksum-Mode=ENABLED&X-Amz-Credential=AKIARRHG6JR7EMNHVUWT%2F20260621%2Fcn-northwest-1%2Fs3%2Faws4_request&X-Amz-Date=20260621T163210Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D86400&x-id=GetObject&X-Amz-Signature=3c89010a8d9985326d6e0fe2d370531f1700cba1144ff93c339b3639177f1142",
+  "data": "2026-06-21T16:32:34.637Z",
+  "nota": "URL do video expira em 1 dia. Arquivo local salvo permanentemente."
+}

@@ -1,0 +1,10 @@
+{
+  "name": "agente-livros-colorir",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Agente que cria livros de colorir para criancas: GLM planeja cenas, OpenAI gera line-art",
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}

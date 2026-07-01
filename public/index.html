@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorir Magico - Criador de Livros</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .card {
+    background: #fff; border-radius: 24px; padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3); width: 100%; max-width: 760px;
+  }
+  h1 { color: #6c5ce7; font-size: 28px; margin-bottom: 4px; }
+  .sub { color: #a29bfe; font-size: 14px; margin-bottom: 24px; }
+
+  /* modo toggle */
+  .modo-tabs { display: flex; gap: 8px; margin-bottom: 24px; background: #f0f0ff; padding: 6px; border-radius: 14px; }
+  .modo-tab {
+    flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent;
+    color: #6c5ce7; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .15s; font-family: inherit;
+  }
+  .modo-tab.ativo { background: #fff; color: #6c5ce7; box-shadow: 0 2px 8px rgba(108,92,231,.2); }
+  .modo-tab:hover:not(.ativo) { background: rgba(255,255,255,.5); }
+
+  label { display: block; font-weight: 600; color: #2d3436; margin-bottom: 8px; font-size: 15px; }
+  input[type=text] {
+    width: 100%; padding: 14px 16px; border: 2px solid #dfe6e9; border-radius: 12px;
+    font-size: 16px; transition: border .2s; font-family: inherit;
+  }
+  input[type=text]:focus { outline: none; border-color: #6c5ce7; }
+  .row { display: flex; gap: 16px; margin-bottom: 20px; }
+  .row > div { flex: 1; }
+  input[type=number] {
+    width: 100%; padding: 14px 16px; border: 2px solid #dfe6e9; border-radius: 12px;
+    font-size: 16px; font-family: inherit;
+  }
+  input[type=number]:focus { outline: none; border-color: #6c5ce7; }
+  select {
+    width: 100%; padding: 14px 16px; border: 2px solid #dfe6e9; border-radius: 12px;
+    font-size: 16px; font-family: inherit; background: #fff; color: #2d3436; cursor: pointer;
+  }
+  select:focus { outline: none; border-color: #6c5ce7; }
+  .exemplos { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .chip {
+    background: #f0f0ff; color: #6c5ce7; border: 1px solid #d5d5f5; padding: 6px 14px;
+    border-radius: 20px; font-size: 13px; cursor: pointer; transition: all .15s;
+  }
+  .chip:hover { background: #6c5ce7; color: #fff; }
+  button.btn-primario {
+    width: 100%; padding: 16px; border: none; border-radius: 12px;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff;
+    font-size: 18px; font-weight: 700; cursor: pointer; transition: transform .1s, opacity .2s; font-family: inherit;
+  }
+  button.btn-primario:hover:not(:disabled) { transform: translateY(-2px); }
+  button.btn-primario:disabled { opacity: .5; cursor: not-allowed; }
+
+  /* upload */
+  .dropzone {
+    border: 2px dashed #c5c5f0; border-radius: 14px; padding: 28px; text-align: center;
+    color: #6c5ce7; cursor: pointer; transition: all .15s; margin-bottom: 14px; background: #fafaff;
+  }
+  .dropzone:hover { border-color: #6c5ce7; background: #f0f0ff; }
+  .dropzone .ico { font-size: 32px; display: block; margin-bottom: 8px; }
+  .dropzone .t1 { font-weight: 700; font-size: 16px; }
+  .dropzone .t2 { font-size: 13px; color: #a29bfe; margin-top: 4px; }
+  .file-inputs { display: flex; gap: 12px; margin-bottom: 16px; }
+  .file-inputs label.btn-secundario {
+    flex: 1; text-align: center; padding: 12px; border: 2px solid #d5d5f5; border-radius: 10px;
+    background: #fff; color: #6c5ce7; font-weight: 600; cursor: pointer; font-size: 14px; transition: all .15s;
+  }
+  .file-inputs label.btn-secundario:hover { background: #f0f0ff; }
+  .file-inputs input { display: none; }
+  .contador { font-size: 14px; color: #636e72; margin-bottom: 12px; font-weight: 600; }
+  .thumbs { display: flex; flex-wrap: wrap; gap: 8px; max-height: 200px; overflow-y: auto; margin-bottom: 16px; }
+  .thumb { position: relative; width: 70px; height: 70px; border-radius: 8px; overflow: hidden; border: 2px solid #e8e8ff; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb .x {
+    position: absolute; top: 2px; right: 2px; background: rgba(108,92,231,.9); color: #fff;
+    width: 18px; height: 18px; border-radius: 50%; font-size: 12px; line-height: 18px; text-align: center; cursor: pointer;
+  }
+  .limpar-btn {
+    background: none; border: none; color: #e17055; font-size: 13px; cursor: pointer; padding: 4px;
+    margin-bottom: 16px; font-family: inherit; text-decoration: underline;
+  }
+
+  .secao { display: none; }
+  .secao.ativo { display: block; }
+
+  .painel {
+    margin-top: 24px; display: none; background: #f8f9ff; border-radius: 16px;
+    padding: 24px; border: 2px solid #e8e8ff;
+  }
+  .painel.ativo { display: block; }
+  .status-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 600; color: #2d3436; font-size: 15px; }
+  .spinner { width: 18px; height: 18px; border: 3px solid #d5d5f5; border-top-color: #6c5ce7; border-radius: 50%; animation: spin 1s linear infinite; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .progress-wrap { background: #e8e8ff; border-radius: 10px; height: 28px; overflow: hidden; margin-bottom: 16px; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #6c5ce7, #a29bfe); transition: width .4s; width: 0%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 700; }
+  .lista { max-height: 280px; overflow-y: auto; }
+  .item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; margin-bottom: 6px; font-size: 14px; background: #fff; }
+  .item .ico { font-size: 18px; }
+  .item .nome { flex: 1; color: #2d3436; }
+  .item .tag { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 10px; }
+  .tag.gerando { background: #fff3cd; color: #856404; }
+  .tag.ok { background: #d4edda; color: #155724; }
+  .tag.erro { background: #f8d7da; color: #721c24; }
+  .titulo-livro { color: #6c5ce7; font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+  .erro-box { background: #f8d7da; color: #721c24; padding: 14px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px; }
+  .sucesso { background: #d4edda; color: #155724; padding: 14px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px; line-height: 1.5; }
+  .info-foot { color: #b2bec3; font-size: 12px; margin-top: 20px; text-align: center; }
+
+  .prompt-toggle { margin-top: 8px; margin-bottom: 24px; text-align: center; }
+  .prompt-toggle a { color: #6c5ce7; font-size: 14px; cursor: pointer; text-decoration: underline; }
+  .prompt-section { display: none; background: #f8f9ff; border: 2px solid #e8e8ff; border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+  .prompt-section.ativo { display: block; }
+  .prompt-section h3 { color: #6c5ce7; font-size: 17px; margin-bottom: 6px; }
+  .prompt-section .help { color: #636e72; font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
+  .prompt-section textarea { width: 100%; min-height: 180px; padding: 14px; border: 2px solid #dfe6e9; border-radius: 12px; font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.6; resize: vertical; color: #2d3436; }
+  .prompt-section textarea:focus { outline: none; border-color: #6c5ce7; }
+  .prompt-actions { display: flex; gap: 12px; margin-top: 14px; }
+  .prompt-actions button { padding: 12px 20px; font-size: 14px; width: auto; flex: 1; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; font-weight: 600; }
+  .btn-salvar { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; }
+  .btn-sec { background: #fff; color: #6c5ce7; border: 2px solid #d5d5f5; }
+  .prompt-feedback { font-size: 13px; margin-top: 10px; text-align: center; min-height: 18px; }
+  .prompt-feedback.ok { color: #155724; }
+  .prompt-feedback.erro { color: #721c24; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Colorir Magico</h1>
+  <p class="sub">Crie livros de colorir personalizados para criancas</p>
+
+  <div class="modo-tabs">
+    <button class="modo-tab ativo" data-modo="scratch">Do zero (IA cria)</button>
+    <button class="modo-tab" data-modo="upload">Converter minhas imagens</button>
+  </div>
+
+  <div class="prompt-toggle">
+    <a id="promptToggle">&#9881; Personalizar prompt da IA</a>
+  </div>
+  <div class="prompt-section" id="promptSection">
+    <h3 id="promptTitulo">Prompt de planejamento (GLM)</h3>
+    <p class="help" id="promptHelp">Este texto orienta a IA a criar o roteiro de cenas. Edite, salve e o proximo livro usara sua versao.</p>
+    <textarea id="promptArea" spellcheck="false"></textarea>
+    <div class="prompt-actions">
+      <button class="btn-sec" id="btnRestaurar">Restaurar padrao</button>
+      <button class="btn-salvar" id="btnSalvarPrompt">Salvar prompt</button>
+    </div>
+    <div class="prompt-feedback" id="promptFeedback"></div>
+  </div>
+
+  <!-- MODO 1: do zero -->
+  <div class="secao ativo" id="secaoScratch">
+    <label for="tema">Tema do livro</label>
+    <input type="text" id="tema" placeholder="Ex: animais da floresta, princesas, dinossauros..." autocomplete="off">
+    <div class="exemplos">
+      <span class="chip">animais da floresta</span>
+      <span class="chip">fundo do mar</span>
+      <span class="chip">dinossauros</span>
+      <span class="chip">fadas e unicornios</span>
+      <span class="chip">fazenda</span>
+      <span class="chip">espaco sideral</span>
+    </div>
+    <div class="row">
+      <div>
+        <label for="qtd">Quantas imagens?</label>
+        <input type="number" id="qtd" value="8" min="1" max="30">
+      </div>
+    </div>
+    <button class="btn-primario" id="btnScratch">Criar meu livro de colorir</button>
+  </div>
+
+  <!-- MODO 2: converter imagens -->
+  <div class="secao" id="secaoUpload">
+    <label>Selecione imagens ou uma pasta inteira</label>
+    <div class="file-inputs">
+      <label class="btn-secundario">
+        Escolher imagens
+        <input type="file" id="fileImagens" accept="image/*" multiple>
+      </label>
+      <label class="btn-secundario">
+        Escolher pasta
+        <input type="file" id="filePasta" webkitdirectory multiple>
+      </label>
+    </div>
+    <div class="row">
+      <div>
+        <label for="qualidade">Qualidade da conversao (custo por imagem)</label>
+        <select id="qualidade">
+          <option value="low" selected>Economica (baixa - mais barato)</option>
+          <option value="medium">Padrao (media)</option>
+          <option value="high">Alta (mais detalhes, mais caro)</option>
+        </select>
+      </div>
+    </div>
+    <div class="contador" id="contador"></div>
+    <div class="thumbs" id="thumbs"></div>
+    <button class="limpar-btn" id="btnLimpar" style="display:none">Limpar selecao</button>
+    <button class="btn-primario" id="btnUpload" disabled>Converter em livro de colorir</button>
+  </div>
+
+  <div class="painel" id="painel">
+    <div class="status-bar">
+      <div class="spinner" id="spinner"></div>
+      <span id="statusTxt">Iniciando...</span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="pbar">0%</div></div>
+    <div class="titulo-livro" id="tituloLivro" style="display:none"></div>
+    <div class="lista" id="lista"></div>
+    <div id="msgBox"></div>
+  </div>
+
+  <p class="info-foot">As imagens sao geradas em paralelo (10 por vez). Cada livro vira uma pasta nova que abre automaticamente.</p>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let currentMode = "scratch";
+let selectedFiles = []; // {file, dataUrl}
+
+// ---------- modo toggle ----------
+document.querySelectorAll(".modo-tab").forEach(t => {
+  t.addEventListener("click", () => {
+    document.querySelectorAll(".modo-tab").forEach(x => x.classList.remove("ativo"));
+    t.classList.add("ativo");
+    currentMode = t.dataset.modo;
+    $("secaoScratch").classList.toggle("ativo", currentMode === "scratch");
+    $("secaoUpload").classList.toggle("ativo", currentMode === "upload");
+    // fecha prompt section ao trocar modo (recarrega ao reabrir)
+    $("promptSection").classList.remove("ativo");
+    $("promptArea").value = "";
+    atualizarPromptUI();
+  });
+});
+
+// ---------- prompt editavel (contexto: modo) ----------
+const promptToggle = $("promptToggle");
+const promptSection = $("promptSection");
+const promptArea = $("promptArea");
+const promptFeedback = $("promptFeedback");
+
+function promptTipo() { return currentMode === "upload" ? "conversao" : "plano"; }
+
+function atualizarPromptUI() {
+  if (currentMode === "upload") {
+    $("promptTitulo").textContent = "Prompt de conversao (OpenAI)";
+    $("promptHelp").textContent = "Este texto orienta como cada imagem sua sera transformada em pagina de colorir. Edite, salve e a proxima conversao usara sua versao.";
+  } else {
+    $("promptTitulo").textContent = "Prompt de planejamento (GLM)";
+    $("promptHelp").textContent = "Este texto orienta a IA a criar o roteiro de cenas. Edite, salve e o proximo livro usara sua versao.";
+  }
+}
+
+promptToggle.addEventListener("click", () => {
+  promptSection.classList.toggle("ativo");
+  if (promptSection.classList.contains("ativo") && !promptArea.value) carregarPrompt();
+});
+
+async function carregarPrompt() {
+  try {
+    const r = await fetch("/api/prompt?tipo=" + promptTipo());
+    const d = await r.json();
+    promptArea.value = d.prompt || "";
+    atualizarPromptUI();
+  } catch (e) {
+    promptFeedback.textContent = "Erro ao carregar: " + e.message;
+    promptFeedback.className = "prompt-feedback erro";
+  }
+}
+
+$("btnSalvarPrompt").addEventListener("click", async () => {
+  const txt = promptArea.value.trim();
+  if (!txt) { promptFeedback.textContent = "Prompt vazio."; promptFeedback.className = "prompt-feedback erro"; return; }
+  promptFeedback.textContent = "Salvando..."; promptFeedback.className = "prompt-feedback";
+  try {
+    const r = await fetch("/api/prompt?tipo=" + promptTipo(), {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: txt })
+    });
+    if (r.ok) { promptFeedback.textContent = "Prompt salvo! Os proximos livros vao usar esta versao."; promptFeedback.className = "prompt-feedback ok"; }
+    else { promptFeedback.textContent = "Erro ao salvar (HTTP " + r.status + ")"; promptFeedback.className = "prompt-feedback erro"; }
+  } catch (e) { promptFeedback.textContent = "Erro: " + e.message; promptFeedback.className = "prompt-feedback erro"; }
+});
+
+$("btnRestaurar").addEventListener("click", async () => {
+  if (!confirm("Restaurar o prompt padrao? Suas alteracoes serao perdidas.")) return;
+  try {
+    const r = await fetch("/api/prompt/restaurar?tipo=" + promptTipo(), { method: "POST" });
+    const d = await r.json();
+    promptArea.value = d.prompt || "";
+    promptFeedback.textContent = "Prompt padrao restaurado."; promptFeedback.className = "prompt-feedback ok";
+  } catch (e) { promptFeedback.textContent = "Erro: " + e.message; promptFeedback.className = "prompt-feedback erro"; }
+});
+
+// ---------- exemplos chips ----------
+document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => { $("tema").value = c.textContent; $("tema").focus(); }));
+
+// ---------- upload: selecionar arquivos/pasta ----------
+function addFiles(fileList) {
+  for (const f of fileList) {
+    if (!f.type.startsWith("image/")) continue;
+    selectedFiles.push({ file: f });
+  }
+  renderThumbs();
+}
+function renderThumbs() {
+  const cont = $("thumbs");
+  cont.innerHTML = selectedFiles.map((s, i) => {
+    const url = s.dataUrl || URL.createObjectURL(s.file);
+    if (!s.dataUrl) s.dataUrl = url;
+    return `<div class="thumb"><img src="${url}"><div class="x" onclick="removerFile(${i})">&times;</div></div>`;
+  }).join("");
+  const n = selectedFiles.length;
+  $("contador").textContent = n ? `${n} imagem(ns) selecionada(s)` : "";
+  $("btnLimpar").style.display = n ? "block" : "none";
+  $("btnUpload").disabled = n === 0;
+}
+window.removerFile = (i) => { selectedFiles.splice(i, 1); renderThumbs(); };
+$("btnLimpar").addEventListener("click", () => { selectedFiles = []; renderThumbs(); });
+$("fileImagens").addEventListener("change", (e) => { addFiles(e.target.files); e.target.value = ""; });
+$("filePasta").addEventListener("change", (e) => { addFiles(e.target.files); e.target.value = ""; });
+
+// redimensiona no browser para reduzir custo (tokens = pixels).
+// JPEG 0.85 + resolucao baixa = payload e custo muito menores.
+// Para line-art de colorir, 512px de input e suficiente (saida sempre 1024x1024).
+function qualidadeMaxDim(qualidade) {
+  if (qualidade === "high") return 1024;
+  if (qualidade === "medium") return 768;
+  return 512; // low / default
+}
+
+async function fileToResizedDataURL(file, maxDim = 512) {
+  const bmp = await createImageBitmap(file);
+  let w = bmp.width, h = bmp.height;
+  const s = Math.min(1, maxDim / Math.max(w, h));
+  w = Math.round(w * s); h = Math.round(h * s);
+  const c = document.createElement("canvas");
+  c.width = w; c.height = h;
+  c.getContext("2d").drawImage(bmp, 0, 0, w, h);
+  // JPEG 0.85: bem menor que PNG, sem perda visivel para conversao em line-art
+  return c.toDataURL("image/jpeg", 0.85);
+}
+
+// ---------- geracao: MODO 1 ----------
+$("btnScratch").addEventListener("click", () => {
+  const tema = $("tema").value.trim();
+  const qtd = parseInt($("qtd").value, 10);
+  if (!tema) { $("tema").focus(); return; }
+  iniciarPainel();
+  gerarSSE("/api/gerar", { tema, quantidade: qtd }, (d) => {
+    if (d.tipo === "plano") {
+      $("tituloLivro").textContent = '"' + d.titulo + '"';
+      $("tituloLivro").style.display = "block";
+      $("lista").innerHTML = d.cenas.map((c, i) =>
+        `<div class="item" id="item-${i}"><span class="ico">&#9998;</span><span class="nome">${i + 1}. ${c}</span><span class="tag gerando">na fila</span></div>`).join("");
+    } else tratarProgresso(d);
+  });
+});
+
+// ---------- geracao: MODO 2 ----------
+$("btnUpload").addEventListener("click", async () => {
+  if (!selectedFiles.length) return;
+  const qualidade = $("qualidade").value;
+  const maxDim = qualidadeMaxDim(qualidade);
+  iniciarPainel();
+  $("statusTxt").textContent = `Preparando ${selectedFiles.length} imagens (${maxDim}px, JPEG)...`;
+  try {
+    const dataUrls = await Promise.all(selectedFiles.map(s => fileToResizedDataURL(s.file, maxDim)));
+    $("lista").innerHTML = dataUrls.map((_, i) =>
+      `<div class="item" id="item-${i}"><span class="ico">&#9998;</span><span class="nome">imagem ${i + 1}</span><span class="tag gerando">na fila</span></div>`).join("");
+    gerarSSE("/api/gerar-de-imagens", { imagens: dataUrls, quality: qualidade }, (d) => {
+      if (d.tipo === "plano-imagens") { /* lista ja renderizada */ }
+      else tratarProgresso(d);
+    });
+  } catch (e) {
+    $("msgBox").innerHTML = `<div class="erro-box">Erro ao ler imagens: ${e.message}</div>`;
+    fimGeracao();
+  }
+});
+
+// ---------- fluxo SSE compartilhado ----------
+function iniciarPainel() {
+  $("painel").classList.add("ativo");
+  $("spinner").style.display = "block";
+  $("pbar").style.width = "0%"; $("pbar").textContent = "0%";
+  $("tituloLivro").style.display = "none";
+  $("lista").innerHTML = ""; $("msgBox").innerHTML = "";
+  $("statusTxt").textContent = "Enviando para a IA...";
+  $("btnScratch").disabled = true; $("btnUpload").disabled = true;
+  $("btnScratch").textContent = "Criando...";
+}
+function fimGeracao() {
+  $("spinner").style.display = "none";
+  $("btnScratch").disabled = false;
+  $("btnScratch").textContent = "Criar meu livro de colorir";
+  $("btnUpload").disabled = selectedFiles.length === 0;
+}
+
+function gerarSSE(url, payload, onEvento) {
+  fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    .then(async (r) => {
+      const reader = r.body.getReader();
+      const dec = new TextDecoder();
+      let buf = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        const linhas = buf.split("\n"); buf = linhas.pop();
+        for (const ln of linhas) {
+          if (!ln.startsWith("data: ")) continue;
+          let d; try { d = JSON.parse(ln.slice(6)); } catch { continue; }
+          onEvento(d);
+        }
+      }
+    })
+    .catch((e) => { $("msgBox").innerHTML = `<div class="erro-box">Erro de conexao: ${e.message}</div>`; })
+    .finally(fimGeracao);
+}
+
+function tratarProgresso(d) {
+  if (d.tipo === "status") { $("statusTxt").textContent = d.msg; return; }
+  if (d.tipo === "progresso") {
+    const concluidas = d.concluidas || 0;
+    const pct = Math.round((concluidas / d.total) * 100);
+    $("pbar").style.width = pct + "%"; $("pbar").textContent = pct + "%";
+    $("statusTxt").textContent = `Gerando em paralelo: ${concluidas} de ${d.total} concluidas`;
+    const it = $("item-" + d.idx);
+    if (it) {
+      const tag = it.querySelector(".tag");
+      if (d.status === "gerando") { tag.className = "tag gerando"; tag.textContent = "gerando"; }
+      else if (d.status === "ok") { tag.className = "tag ok"; tag.innerHTML = "&#10004; pronta"; }
+      else if (d.status === "erro") { tag.className = "tag erro"; tag.textContent = "falhou"; }
+    }
+    return;
+  }
+  if (d.tipo === "fim") {
+    $("pbar").style.width = "100%"; $("pbar").textContent = "100%";
+    $("statusTxt").textContent = "Pronto!";
+    const cls = d.falhas > 0 ? "erro-box" : "sucesso";
+    $("msgBox").innerHTML = `<div class="${cls}"><strong>Livro "${d.titulo}" criado!</strong><br>${d.ok} imagem(ns) geradas com sucesso${d.falhas > 0 ? ", " + d.falhas + " falha(s)" : ""}.<br>A pasta foi aberta para voce ver as imagens.<br><small>${d.pasta}</small></div>`;
+    return;
+  }
+  if (d.tipo === "erro") { $("msgBox").innerHTML = `<div class="erro-box">${d.msg}</div>`; return; }
+}
+
+$("tema").addEventListener("keydown", (e) => { if (e.key === "Enter") $("btnScratch").click(); });
+</script>
+</body>
+</html>

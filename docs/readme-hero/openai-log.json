@@ -1,0 +1,21 @@
+{
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "n": 3,
+  "text": "LIVROS DE COLORIR MÁGICOS",
+  "prompt": "README hero banner for \"Colorir Mágico\" — an AI agent that creates personalized coloring books for kids. It plans creative scenes (with a language model) and draws each page as clean black-and-white line-art (with an image model), ready to print and color.\n\nEditorial isometric 3D illustration, warm and playful but still premium. Palette: soft navy base (#0B1E2D) for depth, bright teal/cyan (#22D3EE) and a warm amber/cream (#FBBF24 / #FEF3C7) for the playful kid-friendly energy. Studio lighting, soft shadows, subtle bloom, high detail. No watermark, no logos.\n\nComposition (wide hero, 3 depth planes, left-to-right reading flow, max 6 visual blocks):\n\nBACKGROUND PLANE — warm navy sky with a faint dot-grid and a few soft cyan \"sparkles\"/stars, generous headroom.\n\nMID PLANE (the action band):\n- LEFT: a small friendly stylized \"creative robot\" character (rounded body, glowing cyan friendly eyes with a smile, small precise arms), holding a giant glowing crayon like a wand. It is actively drawing. Around it float a few colorful crayons/pencils (amber, cyan, coral) and a small floating \"spark/idea\" — representing the AI planning creativity.\n- CENTER: the hero artifact — a clean open coloring-book page rising mid-air showing crisp BLACK-AND-WHITE LINE-ART of a cute friendly animal (e.g., a happy cat or fox with a butterfly), clearly meant to be colored. The line-art is bold, clean, kid-friendly. A few crayon strokes of color are just starting to fill one corner (amber + cyan) suggesting the coloring action. This page is a clear focal point with a soft halo.\n- RIGHT: a small stack of finished coloring-book pages (line-art) fanning out, plus a tiny printer icon gently emitting a finished page, suggesting \"ready to print\". A couple of cheerful mini star/confetti accents in amber.\n\nFOREGROUND — subtle reflective ground plane catching navy/cyan/amber highlights; a few scattered colorful crayons resting softly.\n\nMood: magical, warm, creative, family-friendly, premium. Visual hierarchy: the LINE-ART BOOK PAGE (center) is the protagonist; the friendly robot (left) creates it; the printable stack (right) is the outcome.\n\nDo NOT include: scary/realistic faces, office/business, sales charts, wireframe spheres, money, generic abstract beauty without meaning, social media icons, watermarks, brand logos, photographic real children. Bold modern sans-serif text overlay reading exactly \"LIVROS DE COLORIR MÁGICOS\", centered and clearly legible. Show ONLY this single headline — do NOT add any other labels, captions, callouts or annotations. Keep it to a maximum of 4 visual blocks.",
+  "files": [
+    {
+      "file": "C:\\1Repos\\agente-livros-colorir\\docs\\readme-hero\\openai-1.png",
+      "kb": 2390
+    },
+    {
+      "file": "C:\\1Repos\\agente-livros-colorir\\docs\\readme-hero\\openai-2.png",
+      "kb": 2358
+    },
+    {
+      "file": "C:\\1Repos\\agente-livros-colorir\\docs\\readme-hero\\openai-3.png",
+      "kb": 2296
+    }
+  ]
+}
